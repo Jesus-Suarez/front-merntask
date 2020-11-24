@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 const NuevaCuenta = () => {
 	const [usuario, guardarUsuario] = useState({
-		nombre:'',
+		nombre: '',
 		email: '',
 		password: '',
-		confirmar:''
+		confirmar: '',
 	});
 
 	//Destructuracion del usuario
@@ -26,6 +26,10 @@ const NuevaCuenta = () => {
 		e.preventDefault();
 
 		//Validacion del formulario
+
+		//Validar minimo 6 caracteres del password
+
+	//Validar que los passwords sean iguales
 
 		//pasarlo al action
 	};
@@ -50,7 +54,7 @@ const NuevaCuenta = () => {
 
 					<div className="campo-form">
 						<label htmlFor="email">Email</label>
-						<input
+						<input 
 							type="email"
 							id="email"
 							name="email"
@@ -94,7 +98,7 @@ const NuevaCuenta = () => {
 				</form>
 
 				<Link to={'/'} className="enlace-cuenta">
-					Iniciar Sesión
+					Volver a Iniciar Sesión
 				</Link>
 			</div>
 		</div>

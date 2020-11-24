@@ -4,6 +4,7 @@
 	--gris2: #2f3848;
 	--gris3: #1a202d;
 	--negro: #000000;
+	--rojo: #fd07077e;
 	--headingFont: 'Raleway', sans-serif;
 	--textFont: 'Roboto', sans-serif;
 }
@@ -353,3 +354,6 @@ aside {
 	color: var(--blanco);
 }
 
+.btn-eliminar {
+	background-color: var(--rojo);
+}

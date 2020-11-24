@@ -1,9 +1,28 @@
-import React from 'react' 
+import React from 'react';
 
-const Proyectos = ()=>{
-    return( 
-        <h1>Desde proyectos</h1>
-     )
-}
+import Sidebar from '../layout/Sidebar';
+import Barra from '../layout/Barra';
+import FormTarea from '../tareas/FormTarea';
+import ListadoTareas from '../tareas/ListadoTareas'
 
-export default Proyectos
+const Proyectos = () => {
+	return (
+		<div className="contenedor-app">
+			<Sidebar />
+
+			{/* Administracion de los proyectos */}
+			<div className="seccion-principal">
+				<Barra />
+				<main>
+					<FormTarea />
+
+					<div className="contenedor-tareas">
+                        <ListadoTareas/>
+                    </div>
+				</main>
+			</div>
+		</div>
+	);
+};
+
+export default Proyectos;
