@@ -8,7 +8,13 @@ const NuevoProyecto = (props) => {
 	//Obtener el state del formulario desde el context
 	const proyectosContext = useContext(proyectoContext);
 	//extraemos las funciones del context
-	const { formulario,mostrarFormulario } = proyectosContext;
+	const {
+		formulario,
+		errorformulario,
+		mostrarFormulario,
+		agregarProyecto,
+		mostrarError,
+	} = proyectosContext;
 
 	//State del nuevo proyecto
 	const [proyecto, guardarProyecto] = useState({
@@ -31,18 +37,27 @@ const NuevoProyecto = (props) => {
 		console.log(nombre);
 
 		//Validar el proyecto
+		if (nombre === '') {
+			mostrarError();
+			return;
+		}
 
 		//Agregar al state
+		agregarProyecto(proyecto);
 
 		//Reiniciar el form
+		guardarProyecto({ nombre: '' });
 	};
 
 	//Mostrar el formulario
-	
 
 	return (
 		<Fragment>
-			<button type="buttom" className="btn btn-buttom btn-primario" onClick={()=>mostrarFormulario()}>
+			<button
+				type="buttom"
+				className="btn btn-buttom btn-primario"
+				onClick={() => mostrarFormulario()}
+			>
 				Nuevo Proyecto
 			</button>
 
@@ -63,6 +78,10 @@ const NuevoProyecto = (props) => {
 						className="btn btn-primario btn-block"
 					/>
 				</form>
+			) : null}
+
+			{errorformulario ? (
+				<p className="mensaje error">El nombre del proyecto es obligatorio</p>
 			) : null}
 		</Fragment>
 	);
