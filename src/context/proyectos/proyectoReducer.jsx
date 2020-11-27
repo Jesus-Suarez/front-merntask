@@ -4,7 +4,10 @@ import {
 	AGREGAR_PROYECTO,
 	VALIDAR_FORMULARIO,
 	PROYECTO_ACTUAL,
+	ELIMINAR_PROYECTO,
 } from '../../types/index';
+
+//Aqui solo se modifica el initialState de el archivo proyectoState
 
 export default (state, action) => {
 	switch (action.type) {
@@ -42,6 +45,16 @@ export default (state, action) => {
 				proyecto: state.proyectos.filter(
 					(proyecto) => proyecto.id === action.payload
 				),
+			};
+
+		//Eliminar un proyecto con el id
+		case ELIMINAR_PROYECTO:
+			return {
+				...state,
+				proyectos: state.proyectos.filter(
+					(proyecto) => proyecto.id !== action.payload
+				),
+				proyecto: null,
 			};
 		default:
 			return state;

@@ -16,7 +16,7 @@ const ListadoProyectos = () => {
 	}, []);
 
 	// Revisamos si hay proyectos en la BD si no no hacemos nada
-	if (proyectos.lenght === 0) return null;
+	if (proyectos.length === 0) return <p>No hay proyectos</p>;
 
 	return (
 		<ul className="listado-proyectos">
