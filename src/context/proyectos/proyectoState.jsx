@@ -15,10 +15,10 @@ import {
 
 const ProyectoState = (props) => {
 	const proyectos = [
-		{ id: '1', nombre: 'Intranet' },
-		{ id: '2', nombre: 'Tienda Virtual' },
-		{ id: '3', nombre: 'Maquetacion del Sitio web' },
-		{ id: '4', nombre: 'Diseño de sitio web' },
+		{ id: 1, nombre: 'Intranet' },
+		{ id: 2, nombre: 'Tienda Virtual' },
+		{ id: 3, nombre: 'Maquetacion del Sitio web' },
+		{ id: 4, nombre: 'Diseño de sitio web' },
 	];
 
 	const initialState = {

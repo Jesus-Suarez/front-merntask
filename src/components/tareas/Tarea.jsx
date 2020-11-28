@@ -6,7 +6,7 @@ const Tarea = ({ tarea }) => {
 			<p>{tarea.nombre}</p>
 
 			<div className="estado">
-				{tarea.estado ? ( 
+				{tarea.estado ? (
 					<button type="button" className="completo">
 						Completo
 					</button>
@@ -18,10 +18,10 @@ const Tarea = ({ tarea }) => {
 			</div>
 
 			<div className="acciones">
-				<button type="buttom" type="button" className="btn btn-primario">
+				<button type="buttom" className="btn btn-primario">
 					Editar
 				</button>
-				<button type="buttom" type="button" className="btn btn-secundario">
+				<button type="buttom" className="btn btn-secundario">
 					Eliminar
 				</button>
 			</div>

@@ -7,9 +7,8 @@ import {
 	ELIMINAR_PROYECTO,
 } from '../../types/index';
 
-//Aqui solo se modifica el initialState de el archivo proyectoState
-
 export default (state, action) => {
+	//Aqui solo se modifica el initialState de el archivo proyectoState
 	switch (action.type) {
 		case FORMULARIO_PROYECTO:
 			return {
