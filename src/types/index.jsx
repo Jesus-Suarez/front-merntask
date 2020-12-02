@@ -8,3 +8,6 @@ export const ELIMINAR_PROYECTO = 'ELIMINAR_PROYECTO';
 
 // Esto es para la parte de las tareas
 export const TAREAS_PROYECTO = 'TAREAS_PROYECTO';
+export const AGREGAR_TAREA = 'AGREGAR_TAREA';
+export const VALIDAR_TAREA = 'VALIDAR_TAREA';
+export const ELIMINAR_TAREA = 'ELIMINAR_TAREA';
