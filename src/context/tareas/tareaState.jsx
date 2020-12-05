@@ -3,12 +3,17 @@ import React, { useReducer } from 'react';
 import tareaContext from './tareaContext';
 import tareaReducer from './tareaReducer';
 
+import { uuid } from 'uuidv4';
+
 import {
 	TAREAS_PROYECTO,
 	AGREGAR_TAREA,
 	VALIDAR_TAREA,
 	ELIMINAR_TAREA,
 	ESTADO_TAREA,
+	TAREA_ACTUAL,
+	ACTUALIZAR_TAREA,
+	LIMPIAR_TAREA,
 } from '../../types/index';
 
 const TareaState = (props) => {
@@ -55,6 +60,7 @@ const TareaState = (props) => {
 		],
 		tareasproyecto: null,
 		errortarea: false,
+		tareaseleccionada: null,
 	};
 
 	//crear el dispath y state
@@ -71,6 +77,7 @@ const TareaState = (props) => {
 
 	//Agregar tarea al proyecto seleccionado
 	const agregarTarea = (tarea) => {
+		tarea.id = uuid();
 		dispatch({
 			type: AGREGAR_TAREA,
 			payload: tarea,
@@ -99,17 +106,43 @@ const TareaState = (props) => {
 		});
 	};
 
+	//extrae la tarea para edicion
+	const guardarTareaActual = (tarea) => {
+		dispatch({
+			type: TAREA_ACTUAL,
+			payload: tarea,
+		});
+	};
+
+	const actualizarTarea = (tarea) => {
+		dispatch({
+			type: ACTUALIZAR_TAREA,
+			payload: tarea,
+		});
+	};
+
+	//Elimina la tarea seleccionada
+	const limpiarTarea = () => {
+		dispatch({
+			type: LIMPIAR_TAREA,
+		});
+	};
+
 	return (
 		<tareaContext.Provider
 			value={{
 				tareas: state.tareas,
 				tareasproyecto: state.tareasproyecto,
 				errortarea: state.errortarea,
+				tareaseleccionada: state.tareaseleccionada,
 				obtenerTareas,
 				agregarTarea,
 				validarTarea,
 				eliminarTarea,
 				cambiarEstadoTarea,
+				guardarTareaActual,
+				actualizarTarea,
+				limpiarTarea,
 			}}
 		>
 			{props.children}

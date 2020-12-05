@@ -5,7 +5,12 @@ import tareaContext from '../../context/tareas/tareaContext';
 const Tarea = ({ tarea }) => {
 	//obtenemos la Fn del context de Tarea
 	const tareasContext = useContext(tareaContext);
-	const { eliminarTarea, obtenerTareas, cambiarEstadoTarea } = tareasContext;
+	const {
+		eliminarTarea,
+		obtenerTareas,
+		cambiarEstadoTarea,
+		guardarTareaActual,
+	} = tareasContext;
 
 	//Funcion que se ejecuta cuando el usuario preciona el boton de eliminar tarea
 	const tareaEliminar = (tareaId) => {
@@ -23,6 +28,11 @@ const Tarea = ({ tarea }) => {
 		}
 
 		cambiarEstadoTarea(tarea);
+	};
+
+	//Agregar una tarea actual cuando el usuario desea editarla
+	const seleccionarTarea = (tarea) => {
+		guardarTareaActual(tarea);
 	};
 
 	return (
@@ -50,11 +60,15 @@ const Tarea = ({ tarea }) => {
 			</div>
 
 			<div className="acciones">
-				<button type="buttom" className="btn btn-primario">
+				<button
+					type="button"
+					className="btn btn-primario"
+					onClick={() => seleccionarTarea(tarea)}
+				>
 					Editar
 				</button>
 				<button
-					type="buttom"
+					type="button"
 					className="btn btn-secundario"
 					onClick={() => tareaEliminar(tarea.id)}
 				>

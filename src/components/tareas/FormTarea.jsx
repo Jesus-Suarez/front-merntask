@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import proyectoContext from '../../context/proyectos/proyectoContext';
 import tareaContext from '../../context/tareas/tareaContext';
@@ -11,10 +11,26 @@ const FormTarea = () => {
 	const tareasContext = useContext(tareaContext);
 	const {
 		errortarea,
+		tareaseleccionada,
 		agregarTarea,
 		validarTarea,
 		obtenerTareas,
+		actualizarTarea,
+		limpiarTarea,
 	} = tareasContext;
+
+	//Effect que detecta si hay una tarea seleccionada
+	useEffect(() => {
+		//Si no existe la tarea seleccionada, guardamos la tareaseleccionada
+		if (tareaseleccionada !== null) {
+			guardarTarea(tareaseleccionada);
+		} else {
+			//Si no guardamos la tarea como string vacio
+			guardarTarea({
+				nombre: '',
+			});
+		}
+	}, [tareaseleccionada]);
 
 	//Definimos el state para los campos de nuestro formulario
 	const [tarea, guardarTarea] = useState({
@@ -47,13 +63,19 @@ const FormTarea = () => {
 			return;
 		}
 
-		//Pasar la validacion
-
-		//Agregar la nueva tarea al state de tareas
-		//pasamos el id del proyecto en el que estamos a la tarea
-		tarea.proyectoId = proyectoActual.id;
-		tarea.estado = false;
-		agregarTarea(tarea);
+		//Si es edicion o si es nueva tarea
+		if (tareaseleccionada === null) {
+			//Agregar la nueva tarea al state de tareas
+			//pasamos el id del proyecto en el que estamos a la tarea
+			tarea.proyectoId = proyectoActual.id;
+			tarea.estado = false;
+			agregarTarea(tarea);
+		} else {
+			//Actualizar tarea existente
+			actualizarTarea(tarea);
+			//Elimina la tarea seleccionada del state
+			limpiarTarea();
+		}
 
 		//Obtener y filtrar todas las tareas del proyecto actual de nuevo para refrescarlas en la pantalla
 		obtenerTareas(proyectoActual.id);
@@ -82,7 +104,7 @@ const FormTarea = () => {
 					<input
 						type="submit"
 						className="btn btn-primario btn-submit btn-block"
-						value="Agregar Tarea"
+						value={tareaseleccionada ? 'Actualizar Tarea' : 'Agregar Tarea'}
 					/>
 				</div>
 			</form>
