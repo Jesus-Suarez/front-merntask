@@ -5,7 +5,7 @@ import tareaContext from '../../context/tareas/tareaContext';
 const Tarea = ({ tarea }) => {
 	//obtenemos la Fn del context de Tarea
 	const tareasContext = useContext(tareaContext);
-	const { eliminarTarea, obtenerTareas } = tareasContext;
+	const { eliminarTarea, obtenerTareas, cambiarEstadoTarea } = tareasContext;
 
 	//Funcion que se ejecuta cuando el usuario preciona el boton de eliminar tarea
 	const tareaEliminar = (tareaId) => {
@@ -14,17 +14,36 @@ const Tarea = ({ tarea }) => {
 		obtenerTareas(tarea.proyectoId);
 	};
 
+	//Funcion que modifica el estado de las tareas
+	const cambiarEstado = (tarea) => {
+		if (tarea.estado) {
+			tarea.estado = false;
+		} else {
+			tarea.estado = true;
+		}
+
+		cambiarEstadoTarea(tarea);
+	};
+
 	return (
 		<li className="tarea sombra">
 			<p>{tarea.nombre}</p>
 
 			<div className="estado">
 				{tarea.estado ? (
-					<button type="button" className="completo">
+					<button
+						type="button"
+						className="completo"
+						onClick={() => cambiarEstado(tarea)}
+					>
 						Completo
 					</button>
 				) : (
-					<button type="button" className="incompleto">
+					<button
+						type="button"
+						className="incompleto"
+						onClick={() => cambiarEstado(tarea)}
+					>
 						Incompleto
 					</button>
 				)}
