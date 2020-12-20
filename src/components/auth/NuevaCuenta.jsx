@@ -1,7 +1,31 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const NuevaCuenta = () => {
+//Importamos el context de alerta
+import AlertaContext from '../../context/alertas/alertaContext';
+import AuthContext from '../../context/autenticacion/authContext';
+
+const NuevaCuenta = (props) => {
+	//Extraer valores del context
+	const alertaContext = useContext(AlertaContext);
+	const { alerta, mostrarAlerta } = alertaContext;
+
+	const authContex = useContext(AuthContext);
+	const { mensaje, autenticado, registrarUsuario } = authContex;
+
+	//En caso de que el usuario se haya autenticado o registrado o sea un resgistro duplicado
+	useEffect(() => {
+		//Si el usuario ya esta autenticado lo enviamos a la ruta proyectos
+		if (autenticado) {
+			props.history.push('proyectos');
+		}
+
+		//Si existe un mensaje del backend lo mostramos en la pantalla
+		if (mensaje) {
+			mostrarAlerta(mensaje.msg, mensaje.categoria);
+		}
+	}, [mensaje, autenticado, props.history]);
+
 	const [usuario, guardarUsuario] = useState({
 		nombre: '',
 		email: '',
@@ -26,18 +50,45 @@ const NuevaCuenta = () => {
 		e.preventDefault();
 
 		//Validacion del formulario
+		if (
+			nombre.trim() === '' ||
+			nombre.trim() === '' ||
+			password.trim() === '' ||
+			confirmar.trim() === ''
+		) {
+			//Recive dos parametros uno el mensaje que se va a mostrar y otro el estilo css que se aplicara al mensaje
+			mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+			return;
+			//	El return es para que no se siga ejecutando el codigo de abajo
+		}
 
 		//Validar minimo 6 caracteres del password
+		if (password.length < 6) {
+			mostrarAlerta('El password minimo de 6 caracteres', 'alerta-error');
+			return;
+		}
 
-	//Validar que los passwords sean iguales
+		//Validar que los passwords sean iguales
+		if (password.trim() !== confirmar.trim()) {
+			mostrarAlerta('Las contraseñas deben ser iguales', 'alerta-error');
+			return;
+		}
 
 		//pasarlo al action
+		registrarUsuario({
+			nombre,
+			email,
+			password,
+		});
 	};
 
 	return (
 		<div className="form-usuario">
+			{alerta ? (
+				<div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>
+			) : null}
 			<div className="contenedor-form sombra-dark">
-				<h1>Ontener una Cuenta </h1>
+				<h1>Obtener una Cuenta </h1>
 
 				<form onSubmit={onSubmit}>
 					<div className="campo-form">
@@ -54,7 +105,7 @@ const NuevaCuenta = () => {
 
 					<div className="campo-form">
 						<label htmlFor="email">Email</label>
-						<input 
+						<input
 							type="email"
 							id="email"
 							name="email"
