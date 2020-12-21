@@ -4,7 +4,7 @@ import AuthContext from '../../context/autenticacion/authContext';
 
 const Barra = () => {
 	const authContext = useContext(AuthContext);
-	const { usuarioAutenticado, usuario } = authContext;
+	const { usuarioAutenticado, cerrarSesion, usuario } = authContext;
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -19,7 +19,12 @@ const Barra = () => {
 			) : null}
 
 			<nav className="nav-principal">
-				<a href="#!">Cerrar Sesión</a>
+				<button
+					className="btn btn-blank cerrar-sesion"
+					onClick={() => cerrarSesion()}
+				>
+					Cerrar Sesión
+				</button>
 			</nav>
 		</header>
 	);
