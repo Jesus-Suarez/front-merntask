@@ -13,11 +13,12 @@ const NuevaCuenta = (props) => {
 	const authContex = useContext(AuthContext);
 	const { mensaje, autenticado, registrarUsuario } = authContex;
 
+	//El useEffect siempre debe ir al principio de los state o Fn
 	//En caso de que el usuario se haya autenticado o registrado o sea un resgistro duplicado
 	useEffect(() => {
 		//Si el usuario ya esta autenticado lo enviamos a la ruta proyectos
 		if (autenticado) {
-			props.history.push('proyectos');
+			props.history.push('/proyectos');
 		}
 
 		//Si existe un mensaje del backend lo mostramos en la pantalla

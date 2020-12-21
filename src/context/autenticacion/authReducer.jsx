@@ -10,6 +10,7 @@ import {
 export default (state, action) => {
 	switch (action.type) {
 		case REGISTRO_EXITOSO:
+		case LOGIN_EXITOSO:
 			localStorage.setItem('token', action.payload.token);
 			return {
 				...state,
@@ -17,8 +18,8 @@ export default (state, action) => {
 				mensaje: null,
 			};
 
-		case LOGIN_ERROR:
 		case REGISTRO_ERROR:
+		case LOGIN_ERROR:
 			//En caso de que el backend envie un error se quita el token del localStorage
 			localStorage.removeItem('token');
 			return {

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
@@ -14,6 +14,7 @@ import {
 
 import clienteAxios from '../../config/axios';
 import tokenAuth from '../../config/token';
+
 const AuthState = (props) => {
 	//Guardamos el token en la memoria del navegador
 	const initialState = {
@@ -79,6 +80,35 @@ const AuthState = (props) => {
 			});
 		}
 	};
+
+	//FN para iniciar sesion
+	const iniciarSesion = async (datos) => {
+		try {
+			const response = await clienteAxios.post('/api/auth', datos);
+			console.log(response);
+
+			dispatch({
+				type: LOGIN_EXITOSO,
+				payload: response.data,
+			});
+
+			//LAS INSTRUCCIONES QUE SE HACEN DESPUES QUE EL USUARIO PUESO CORRECTOS SU EMAIL Y PASSWORD
+			usuarioAutenticado();
+		} catch (error) {
+			//Si ahy un error en la consulta entonses enviamos la sig alerta
+			console.log(error);
+			console.log(error.response.data.error.msg);
+			const alerta = {
+				msg: error.response.data.error.msg,
+				categoria: 'alerta-error',
+			};
+			//Le enviamos el objeto alerta al reducer para pasarlo al componente nueva-ruta
+			dispatch({
+				type: LOGIN_ERROR,
+				payload: alerta,
+			});
+		}
+	};
 	return (
 		<AuthContext.Provider
 			value={{
@@ -87,6 +117,7 @@ const AuthState = (props) => {
 				usuario: state.usuario,
 				mensaje: state.mensaje,
 				registrarUsuario,
+				iniciarSesion,
 			}}
 		>
 			{props.children}
