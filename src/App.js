@@ -12,6 +12,12 @@ import AlertaState from './context/alertas/alertaState';
 //State de la autenticacion
 import AuthState from './context/autenticacion/authState';
 
+import tokenAuth from './config/token';
+//Revisa si tenemos un token de un usuario ya autenticado
+const token = localStorage.getItem('token');
+if (token) {
+	tokenAuth(token);
+}
 function App() {
 	console.log(process.env.REACT_APP_BACKEND_URL);
 	return (
