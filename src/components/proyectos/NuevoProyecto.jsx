@@ -34,7 +34,7 @@ const NuevoProyecto = (props) => {
 	//lee el contenido del formulario para ejecutar la siguiente tarea
 	const onSubmitProyecto = (e) => {
 		e.preventDefault();
-		console.log(nombre);
+		//console.log(nombre);
 
 		//Validar el proyecto
 		if (nombre === '') {

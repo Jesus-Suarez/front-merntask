@@ -17,6 +17,7 @@ export default (state, action) => {
 			};
 
 		case OBTENER_PROYECTOS:
+			//console.log(action.payload);
 			return {
 				...state,
 				proyectos: action.payload,
@@ -42,7 +43,7 @@ export default (state, action) => {
 			return {
 				...state,
 				proyecto: state.proyectos.filter(
-					(proyecto) => proyecto.id === action.payload
+					(proyecto) => proyecto._id === action.payload
 				),
 			};
 
