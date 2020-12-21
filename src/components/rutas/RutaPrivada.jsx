@@ -7,14 +7,22 @@ const RutaPrivada = ({ component: Component, ...props }) => {
 	//console.log(props);
 
 	const authContext = useContext(AuthContext);
-	const { autenticado } = authContext;
+	const { autenticado, cargando, usuarioAutenticado } = authContext;
+
+	useEffect(() => {
+		usuarioAutenticado();
+	}, []);
 
 	return (
 		/* Si el usaurio no esta autenticado lo enviamos al la ruta "/".  Si, si esta autenticado lo mandamos al componente que lo esta mandado a llamar */
 		<Route
 			{...props}
 			render={(props) =>
-				!autenticado ? <Redirect to="/" /> : <Component {...props} />
+				!autenticado && !cargando ? (
+					<Redirect to="/" />
+				) : (
+					<Component {...props} />
+				)
 			}
 		/>
 	);
