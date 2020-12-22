@@ -8,8 +8,8 @@ const Tarea = ({ tarea }) => {
 	const {
 		eliminarTarea,
 		obtenerTareas,
-		cambiarEstadoTarea,
 		guardarTareaActual,
+		actualizarTarea,
 	} = tareasContext;
 
 	//Funcion que se ejecuta cuando el usuario preciona el boton de eliminar tarea
@@ -27,7 +27,7 @@ const Tarea = ({ tarea }) => {
 			tarea.estado = true;
 		}
 
-		cambiarEstadoTarea(tarea);
+		actualizarTarea(tarea);
 	};
 
 	//Agregar una tarea actual cuando el usuario desea editarla

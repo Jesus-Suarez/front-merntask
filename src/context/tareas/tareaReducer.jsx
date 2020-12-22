@@ -3,7 +3,6 @@ import {
 	AGREGAR_TAREA,
 	VALIDAR_TAREA,
 	ELIMINAR_TAREA,
-	ESTADO_TAREA,
 	TAREA_ACTUAL,
 	ACTUALIZAR_TAREA,
 	LIMPIAR_TAREA,
@@ -38,11 +37,10 @@ export default (state, action) => {
 
 		//Se utiliza el mismo CASE por que hace la misma tarea que es actualizar
 		case ACTUALIZAR_TAREA:
-		case ESTADO_TAREA:
 			return {
 				...state,
 				tareasproyecto: state.tareasproyecto.map((tarea) =>
-					tarea.id === action.payload.id ? action.payload : tarea
+					tarea._id === action.payload._id ? action.payload : tarea
 				),
 			};
 		case TAREA_ACTUAL:
