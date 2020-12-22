@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
@@ -75,7 +75,7 @@ const AuthState = (props) => {
 				payload: response.data.usuario,
 			});
 		} catch (error) {
-			console.log(error.response);
+			//console.log(error.response);
 			dispatch({
 				type: LOGIN_ERROR,
 			});

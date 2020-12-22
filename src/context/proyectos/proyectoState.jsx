@@ -9,6 +9,7 @@ import {
 	VALIDAR_FORMULARIO,
 	PROYECTO_ACTUAL,
 	ELIMINAR_PROYECTO,
+	PROYECTO_ERROR,
 } from '../../types/index';
 
 import clienteAxios from '../../config/axios';
@@ -19,6 +20,7 @@ const ProyectoState = (props) => {
 		formulario: false,
 		errorformulario: false,
 		proyecto: null,
+		mensaje: null,
 	};
 
 	//Dispatch para ejecutar las funciones
@@ -36,28 +38,46 @@ const ProyectoState = (props) => {
 	const obtenerProyectos = async () => {
 		try {
 			const response = await clienteAxios.get('/api/proyectos');
-			//console.log(response);
+			//console.log(response.data.proyectos);
 
 			dispatch({
 				type: OBTENER_PROYECTOS,
 				payload: response.data.proyectos,
 			});
 		} catch (error) {
-			console.log(error);
+			//console.log(error);
+			const alerta = {
+				msg: 'Hubo un error',
+				categoria: 'alerta-error',
+			};
+
+			dispatch({
+				type: PROYECTO_ERROR,
+				payload: alerta,
+			});
 		}
 	};
 
 	const agregarProyecto = async (proyecto) => {
 		try {
 			const response = await clienteAxios.post('api/proyectos', proyecto);
-			console.log(response);
+			//console.log(response.data);
 			//Insertamos el proyecto state
 			dispatch({
 				type: AGREGAR_PROYECTO,
-				payload: response.data,
+				payload: response.data.proyecto,
 			});
 		} catch (error) {
-			console.log(error);
+			//console.log(error);
+			const alerta = {
+				msg: 'Hubo un error',
+				categoria: 'alerta-error',
+			};
+
+			dispatch({
+				type: PROYECTO_ERROR,
+				payload: alerta,
+			});
 		}
 	};
 
@@ -77,11 +97,27 @@ const ProyectoState = (props) => {
 	};
 
 	//Fn para eliminar un proyecto seleccionado
-	const eliminarProject = (proyectoId) => {
-		dispatch({
-			type: ELIMINAR_PROYECTO,
-			payload: proyectoId,
-		});
+	const eliminarProject = async (proyectoId) => {
+		try {
+			await clienteAxios.delete(`/api/proyectos/${proyectoId}`);
+
+			dispatch({
+				type: ELIMINAR_PROYECTO,
+				payload: proyectoId,
+			});
+		} catch (error) {
+			//console.log(error);
+
+			const alerta = {
+				msg: 'Hubo un error',
+				categoria: 'alerta-error',
+			};
+
+			dispatch({
+				type: PROYECTO_ERROR,
+				payload: alerta,
+			});
+		}
 	};
 
 	return (
@@ -91,6 +127,7 @@ const ProyectoState = (props) => {
 				formulario: state.formulario,
 				errorformulario: state.errorformulario,
 				proyecto: state.proyecto,
+				mensaje: state.mensaje,
 				mostrarFormulario,
 				obtenerProyectos,
 				agregarProyecto,

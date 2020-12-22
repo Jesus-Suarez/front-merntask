@@ -15,6 +15,8 @@ export const ESTADO_TAREA = 'ESTADO_TAREA';
 export const TAREA_ACTUAL = 'TAREA_ACTUAL';
 export const ACTUALIZAR_TAREA = 'ACTUALIZAR_TAREA';
 export const LIMPIAR_TAREA = 'LIMPIAR_TAREA';
+//es para mostrar un error al usuario en caso de que la peticion haya fallado
+export const PROYECTO_ERROR = 'PROYECTO_ERROR';
 
 export const MOSTRAR_ALERTA = 'MOSTRAR_ALERTA';
 export const OCULTAR_ALERTA = 'OCULTAR_ALERTA';
