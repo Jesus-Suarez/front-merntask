@@ -47,11 +47,11 @@ const TareaState = (props) => {
 	const agregarTarea = async (tarea) => {
 		try {
 			const response = await clienteAxios.post('/api/tareas', tarea);
-			console.log(response);
+			//console.log(response);
 
 			dispatch({
 				type: AGREGAR_TAREA,
-				payload: tarea,
+				payload: response.data.tarea,
 			});
 		} catch (error) {
 			console.log(error);
@@ -82,6 +82,7 @@ const TareaState = (props) => {
 
 	//Edita o modifica una tarea de estado=true/false o de nombre
 	const actualizarTarea = async (tarea) => {
+		//console.log(tarea);
 		try {
 			//Le pasamos la tarea a la pericion para que la reescriba
 			const response = await clienteAxios.put(
@@ -106,7 +107,7 @@ const TareaState = (props) => {
 		});
 	};
 
-	//Elimina la tarea seleccionada
+	//Elimina la tarea seleccionada del form
 	const limpiarTarea = () => {
 		dispatch({
 			type: LIMPIAR_TAREA,

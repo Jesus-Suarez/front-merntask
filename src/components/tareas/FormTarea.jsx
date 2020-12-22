@@ -57,7 +57,7 @@ const FormTarea = () => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		//Validar
+		//Validar el form
 		if (nombre.trim() === '') {
 			validarTarea();
 			return;

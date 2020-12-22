@@ -52,7 +52,6 @@ export default (state, action) => {
 			return {
 				...state,
 				tareaseleccionada: null,
-				errortarea: false,
 			};
 
 		default:
